@@ -1,11 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cooking Mama Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --yellow:  #FFF59D;
+      --yellow2: #FFEE58;
+      --pink:    #F48FB1;
+      --pink2:   #EC407A;
+      --blue:    #B3E5FC;
+      --blue2:   #81D4FA;
+      --mint:    #B2DFDB;
+      --orange:  #FFB300;
+      --red:     #E53935;
+      --white:   #FFFFFF;
+      --shadow:  rgba(0,0,0,0.15);
+    }
+    html, body { height: 100%; font-family: 'Nunito', sans-serif; background: var(--yellow); overflow-x: hidden; }
+    .stars-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .star { position: absolute; font-size: 2rem; opacity: 0.75; animation: starFloat 6s ease-in-out infinite; }
+    @keyframes starFloat { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(15deg); } }
+    .side-panel { display: none; position: fixed; top: 0; bottom: 0; width: 48px; background: var(--blue); z-index: 1; }
+    .side-panel.left  { left: 0; }
+    .side-panel.right { right: 0; }
+    @media (max-width: 1279px) { .side-panel { display: block; } }
+    @media (max-width: 799px)  { .side-panel { width: 28px; } }
+    .page-wrapper { position: relative; z-index: 2; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px 40px; }
+    .card { background: var(--yellow); border-radius: 28px; width: 100%; max-width: 600px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.18); border: 4px solid var(--yellow2); display: flex; flex-direction: column; align-items: center; }
+    .kitchen-banner { width: 100%; position: relative; overflow: hidden; border-bottom: 4px solid var(--yellow2); }
+    .kitchen-banner img.bg { width: 100%; display: block; object-fit: cover; max-height: 260px; }
+    .logo-wrap { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 55%; max-width: 220px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); animation: logoBounce 2.5s ease-in-out infinite; }
+    @keyframes logoBounce { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-54%) scale(1.04); } }
+    .card-body { padding: 28px 32px 36px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+    .tagline { font-size: 1rem; font-weight: 700; color: #E57373; letter-spacing: 0.04em; text-align: center; text-shadow: 1px 1px 0 #fff; }
+    .btn-google { display: flex; align-items: center; gap: 10px; background: var(--pink); color: #fff; border: none; border-radius: 50px; padding: 14px 32px; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #c2185b, 0 6px 18px rgba(244,143,177,0.4); transition: transform 0.1s, box-shadow 0.1s; letter-spacing: 0.02em; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+    .btn-google:hover { background: var(--pink2); transform: translateY(-2px); box-shadow: 0 6px 0 #880e4f, 0 8px 22px rgba(244,143,177,0.5); }
+    .btn-google:active { transform: translateY(2px); box-shadow: 0 2px 0 #c2185b; }
+    .btn-google svg { width: 22px; height: 22px; flex-shrink: 0; }
+    .btn-google:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .user-pill { display: flex; align-items: center; gap: 10px; background: var(--white); border-radius: 50px; padding: 8px 20px 8px 8px; box-shadow: 0 2px 10px var(--shadow); font-weight: 700; color: #555; font-size: 0.9rem; }
+    .user-pill img { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--pink); }
+    .welcome-text { font-size: 1.1rem; font-weight: 800; color: #E57373; text-align: center; }
+    .enter-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--pink); color: #fff; border: none; border-radius: 50px; padding: 14px 36px; font-family: 'Nunito', sans-serif; font-size: 1.05rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 0 #c2185b, 0 6px 18px rgba(244,143,177,0.4); transition: transform 0.1s, box-shadow 0.1s; }
+    .enter-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #880e4f, 0 8px 22px rgba(244,143,177,0.5); }
+    .enter-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #c2185b; }
+    .sign-out-btn { background: transparent; border: 2px solid #ccc; border-radius: 50px; padding: 6px 18px; font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 700; color: #888; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+    .sign-out-btn:hover { border-color: var(--pink); color: var(--pink2); }
+    .spinner { width: 28px; height: 28px; border: 4px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #E53935; color: #fff; padding: 10px 22px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; z-index: 999; display: none; animation: fadeUp 0.3s ease; }
+    @keyframes fadeUp { from { opacity:0; transform: translate(-50%,10px); } to { opacity:1; transform: translate(-50%,0); } }
+    @media (max-width: 799px) { .card { max-width: 340px; } .kitchen-banner img.bg { max-height: 180px; } .logo-wrap { width: 60%; } .card-body { padding: 20px 20px 28px; } }
+  </style>
 </head>
 <body>
-    
+  <div class="stars-layer" aria-hidden="true" id="starsLayer"></div>
+  <div class="side-panel left"></div>
+  <div class="side-panel right"></div>
+
+  <main class="page-wrapper">
+    <div class="card">
+      <div class="kitchen-banner">
+        <img class="bg" src="cookingbg.png" alt="Cooking Mama Kitchen" />
+        <img class="logo-wrap" src="logoyes.png" alt="Cooking Mama Logo" />
+      </div>
+      <div class="card-body" id="cardBody">
+        <div id="loadingState"><div class="spinner" style="border-top-color:#EC407A;border-color:rgba(236,64,122,0.3);"></div></div>
+
+        <!-- Signed OUT -->
+        <div id="signedOutState" style="display:none; flex-direction:column; align-items:center; gap:16px; width:100%;">
+          <p class="tagline">🍳 Welcome to Mama's Kitchen!</p>
+          <button class="btn-google" id="btnGoogle">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M44.5 20H24v8.5h11.7C34.2 33.6 29.6 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.1-6.1C34.8 5.5 29.7 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.8 0 20.3-7.8 20.3-21 0-1.4-.1-2.7-.3-4z"/></svg>
+            Sign in with Google
+          </button>
+        </div>
+
+        <!-- Signed IN -->
+        <div id="signedInState" style="display:none; flex-direction:column; align-items:center; gap:14px; width:100%;">
+          <div class="user-pill">
+            <img id="userAvatar" src="" alt="avatar" />
+            <span id="userName">Chef</span>
+          </div>
+          <p class="welcome-text" id="welcomeMsg">Let's get cooking! 🍽️</p>
+          <button class="enter-btn" id="enterBtn">🍴 Enter the Restaurant</button>
+          <button class="sign-out-btn" id="btnSignOut">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module">
+    import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+                               from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, serverTimestamp }
+                               from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const OWNER_EMAIL = "danielaiscool6128@gmail.com";
+
+    const firebaseConfig = {
+      apiKey:            "AIzaSyCEAcwTKoSnUkbaGvjrsy1QZ-Duj12WImk",
+      authDomain:        "cookingmamauwu-9902c.firebaseapp.com",
+      projectId:         "cookingmamauwu-9902c",
+      storageBucket:     "cookingmamauwu-9902c.firebasestorage.app",
+      messagingSenderId: "18763902036",
+      appId:             "1:18763902036:web:a8703f75e5ddf1d1b791c1"
+    };
+
+    const app      = initializeApp(firebaseConfig);
+    const auth     = getAuth(app);
+    const db       = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    const loadingState   = document.getElementById("loadingState");
+    const signedOutState = document.getElementById("signedOutState");
+    const signedInState  = document.getElementById("signedInState");
+    const btnGoogle      = document.getElementById("btnGoogle");
+    const btnSignOut     = document.getElementById("btnSignOut");
+    const enterBtn       = document.getElementById("enterBtn");
+    const userAvatar     = document.getElementById("userAvatar");
+    const userName       = document.getElementById("userName");
+    const welcomeMsg     = document.getElementById("welcomeMsg");
+    const toast          = document.getElementById("toast");
+
+    function show(el) { el.style.display = "flex"; }
+    function hide(el) { el.style.display = "none"; }
+    function showToast(msg) { toast.textContent = msg; toast.style.display = "block"; setTimeout(() => toast.style.display = "none", 3500); }
+
+    async function saveUser(user) {
+      const ref  = doc(db, "users", user.uid);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        await setDoc(ref, { uid: user.uid, displayName: user.displayName, email: user.email, photoURL: user.photoURL, role: user.email === OWNER_EMAIL ? "owner" : "customer", createdAt: serverTimestamp(), lastLogin: serverTimestamp() });
+      } else {
+        await setDoc(ref, { lastLogin: serverTimestamp() }, { merge: true });
+      }
+    }
+
+    function getDestination(user) {
+      return user.email === OWNER_EMAIL ? "owner.html" : "customer.html";
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      hide(loadingState);
+      if (user) {
+        try { await saveUser(user); } catch(e) { console.warn(e); }
+        userAvatar.src = user.photoURL || "";
+        userName.textContent = user.displayName?.split(" ")[0] || "Chef";
+        welcomeMsg.textContent = `Welcome back, ${user.displayName?.split(" ")[0] || "Chef"}! 🍳`;
+        hide(signedOutState);
+        show(signedInState);
+      } else {
+        hide(signedInState);
+        show(signedOutState);
+      }
+    });
+
+    enterBtn.addEventListener("click", () => {
+      const user = auth.currentUser;
+      if (user) window.location.href = getDestination(user);
+    });
+
+    btnGoogle.addEventListener("click", async () => {
+      btnGoogle.disabled = true;
+      btnGoogle.innerHTML = `<div class="spinner"></div> Signing in…`;
+      try {
+        const result = await signInWithPopup(auth, provider);
+        window.location.href = getDestination(result.user);
+      } catch (err) {
+        if (err.code !== "auth/popup-closed-by-user") showToast("Sign-in failed — please try again 😢");
+        btnGoogle.disabled = false;
+        btnGoogle.innerHTML = `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M44.5 20H24v8.5h11.7C34.2 33.6 29.6 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.1-6.1C34.8 5.5 29.7 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.8 0 20.3-7.8 20.3-21 0-1.4-.1-2.7-.3-4z"/></svg> Sign in with Google`;
+      }
+    });
+
+    btnSignOut.addEventListener("click", async () => { await signOut(auth); });
+  </script>
+
+  <script>
+    const starEmojis = ["⭐","🌟","✨","💫"];
+    const starColors = ["#F48FB1","#81D4FA","#A5D6A7","#FFE082","#CE93D8"];
+    const layer = document.getElementById("starsLayer");
+    const count = window.innerWidth < 800 ? 10 : 18;
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement("span");
+      s.className = "star";
+      s.textContent = starEmojis[i % starEmojis.length];
+      s.style.left = Math.random() * 100 + "vw";
+      s.style.top  = Math.random() * 100 + "vh";
+      s.style.fontSize = (1.2 + Math.random() * 1.6) + "rem";
+      s.style.color = starColors[i % starColors.length];
+      s.style.animationDelay    = (Math.random() * 4) + "s";
+      s.style.animationDuration = (4 + Math.random() * 4) + "s";
+      layer.appendChild(s);
+    }
+  </script>
 </body>
 </html>
