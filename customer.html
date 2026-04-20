@@ -135,7 +135,6 @@
       display: flex; align-items: center; justify-content: center;
       display: none;
     }
-    /* Dark mode toggle */
     .theme-toggle {
       background: var(--divider);
       border: none;
@@ -157,7 +156,6 @@
     }
     [data-theme="dark"] .theme-toggle::after { left: 23px; }
     .theme-toggle-label { font-size: 1rem; }
-    /* User pill */
     .user-pill {
       display: flex;
       align-items: center;
@@ -192,7 +190,6 @@
     }
     .sign-out-btn:hover { border-color: var(--pink); color: var(--pink2); }
 
-    /* ── Page Hero ── */
     .hero {
       text-align: center;
       padding: 36px 16px 12px;
@@ -210,7 +207,6 @@
       margin-top: 4px;
     }
 
-    /* ── Category Tabs ── */
     .tabs {
       display: flex;
       gap: 8px;
@@ -237,7 +233,6 @@
       box-shadow: 0 3px 10px var(--shadow);
     }
 
-    /* ── Menu Grid ── */
     .menu-section {
       max-width: 1100px;
       margin: 0 auto;
@@ -265,7 +260,6 @@
       gap: 18px;
     }
 
-    /* ── Menu Card ── */
     .menu-card {
       background: var(--card-bg);
       border-radius: 20px;
@@ -339,11 +333,9 @@
     .add-btn:hover { transform: translateY(-2px); }
     .add-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--accent2); }
 
-    /* ── hidden section ── */
     .category-group { display: block; }
     .category-group.hidden { display: none; }
 
-    /* ── Cart Drawer ── */
     .cart-overlay {
       position: fixed;
       inset: 0;
@@ -478,7 +470,6 @@
     .checkout-btn:hover { transform: translateY(-2px); }
     .checkout-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--pink2); }
 
-    /* ── Success Toast ── */
     .toast {
       position: fixed;
       bottom: 24px; left: 50%;
@@ -500,7 +491,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* ── Loading overlay ── */
     #authLoader {
       position: fixed;
       inset: 0;
@@ -519,7 +509,7 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── Responsive ── */
+    /* ──  ── */
     @media (max-width: 600px) {
       nav { padding: 8px 12px; }
       .nav-title { display: none; }
@@ -535,7 +525,7 @@
 
 <!-- Navbar -->
 <nav id="mainNav" style="display:none">
-  <img class="nav-logo" src="logonav.jpg" alt="Cooking Mama" onclick="window.scrollTo(0,0)" />
+  <img class="nav-logo" src="/assets/logonav.jpg" alt="Cooking Mama" onclick="window.scrollTo(0,0)" />
   <span class="nav-title">Cooking Mama</span>
   <div class="nav-right">
     <!-- Dark mode toggle -->
@@ -578,8 +568,8 @@
     <div class="category-group" data-group="appetizer">
       <div class="section-title">🥗 Appetizers</div>
       <div class="menu-grid">
-        <div class="menu-card" data-name="Kimchi" data-price="6.99" data-cat="appetizer" data-img="kimchi.png">
-          <img src="kimchi.png" alt="Kimchi" loading="lazy" />
+        <div class="menu-card" data-name="Kimchi" data-price="6.99" data-cat="appetizer" data-img="/assets/kimchi.png">
+          <img src="/assets/kimchi.png" alt="Kimchi" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-appetizer">Appetizer</span>
             <div class="menu-card-name">Kimchi</div>
@@ -587,8 +577,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Guacamole & Chips" data-price="8.49" data-cat="appetizer" data-img="guac.png">
-          <img src="guac.png" alt="Guacamole & Chips" loading="lazy" />
+        <div class="menu-card" data-name="Guacamole & Chips" data-price="8.49" data-cat="appetizer" data-img="/assets/guac.png">
+          <img src="/assets/guac.png" alt="Guacamole & Chips" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-appetizer">Appetizer</span>
             <div class="menu-card-name">Guacamole & Chips</div>
@@ -603,8 +593,8 @@
     <div class="category-group" data-group="main">
       <div class="section-title">🍳 Main Courses</div>
       <div class="menu-grid">
-        <div class="menu-card" data-name="Tacos" data-price="12.99" data-cat="main" data-img="tacos.png">
-          <img src="tacos.png" alt="Tacos" loading="lazy" />
+        <div class="menu-card" data-name="Tacos" data-price="12.99" data-cat="main" data-img="/assets/tacos.png">
+          <img src="/assets/tacos.png" alt="Tacos" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-main">Main</span>
             <div class="menu-card-name">Tacos</div>
@@ -612,8 +602,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Sushi Balls" data-price="14.99" data-cat="main" data-img="sushiballs.png">
-          <img src="sushiballs.png" alt="Sushi Balls" loading="lazy" />
+        <div class="menu-card" data-name="Sushi Balls" data-price="14.99" data-cat="main" data-img="/assets/sushiballs.png">
+          <img src="/assets/sushiballs.png" alt="Sushi Balls" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-main">Main</span>
             <div class="menu-card-name">Sushi Balls</div>
@@ -621,8 +611,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Garlic Shrimp" data-price="16.49" data-cat="main" data-img="shrimp.png">
-          <img src="shrimp.png" alt="Garlic Shrimp" loading="lazy" />
+        <div class="menu-card" data-name="Garlic Shrimp" data-price="16.49" data-cat="main" data-img="/assets/shrimp.png">
+          <img src="/assets/shrimp.png" alt="Garlic Shrimp" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-main">Main</span>
             <div class="menu-card-name">Garlic Shrimp</div>
@@ -630,8 +620,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Ramen" data-price="13.99" data-cat="main" data-img="ramen.png">
-          <img src="ramen.png" alt="Ramen" loading="lazy" />
+        <div class="menu-card" data-name="Ramen" data-price="13.99" data-cat="main" data-img="/assets/ramen.png">
+          <img src="/assets/ramen.png" alt="Ramen" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-main">Main</span>
             <div class="menu-card-name">Ramen</div>
@@ -639,8 +629,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Pizza" data-price="15.99" data-cat="main" data-img="pizza.png">
-          <img src="pizza.png" alt="Pizza" loading="lazy" />
+        <div class="menu-card" data-name="Pizza" data-price="15.99" data-cat="main" data-img="/assets/pizza.png">
+          <img src="/assets/pizza.png" alt="Pizza" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-main">Main</span>
             <div class="menu-card-name">Pizza</div>
@@ -648,8 +638,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Curry & Rice" data-price="13.49" data-cat="main" data-img="curry.png">
-          <img src="curry.png" alt="Curry" loading="lazy" />
+        <div class="menu-card" data-name="Curry & Rice" data-price="13.49" data-cat="main" data-img="/assets/curry.png">
+          <img src="/assets/curry.png" alt="Curry" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-main">Main</span>
             <div class="menu-card-name">Curry & Rice</div>
@@ -657,8 +647,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Churrasco Skewers" data-price="18.99" data-cat="main" data-img="churrsasco.png">
-          <img src="churrsasco.png" alt="Churrasco" loading="lazy" />
+        <div class="menu-card" data-name="Churrasco Skewers" data-price="18.99" data-cat="main" data-img="/assets/churrsasco.png">
+          <img src="/assets/churrsasco.png" alt="Churrasco" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-main">Main</span>
             <div class="menu-card-name">Churrasco Skewers</div>
@@ -666,8 +656,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Beef Steak" data-price="24.99" data-cat="main" data-img="beefsteak.png">
-          <img src="beefsteak.png" alt="Beef Steak" loading="lazy" />
+        <div class="menu-card" data-name="Beef Steak" data-price="24.99" data-cat="main" data-img="/assets/beefsteak.png">
+          <img src="/assets/beefsteak.png" alt="Beef Steak" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-main">Main</span>
             <div class="menu-card-name">Beef Steak</div>
@@ -682,8 +672,8 @@
     <div class="category-group" data-group="dessert">
       <div class="section-title">🍰 Desserts</div>
       <div class="menu-grid">
-        <div class="menu-card" data-name="Donuts" data-price="4.99" data-cat="dessert" data-img="donuts.png">
-          <img src="donuts.png" alt="Donuts" loading="lazy" />
+        <div class="menu-card" data-name="Donuts" data-price="4.99" data-cat="dessert" data-img="/assets/donuts.png">
+          <img src="/assets/donuts.png" alt="Donuts" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-dessert">Dessert</span>
             <div class="menu-card-name">Donuts</div>
@@ -691,8 +681,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Crepes" data-price="7.99" data-cat="dessert" data-img="crepes.png">
-          <img src="crepes.png" alt="Crepes" loading="lazy" />
+        <div class="menu-card" data-name="Crepes" data-price="7.99" data-cat="dessert" data-img="/assets/crepes.png">
+          <img src="/assets/crepes.png" alt="Crepes" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-dessert">Dessert</span>
             <div class="menu-card-name">Crepes</div>
@@ -700,8 +690,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Cookies" data-price="5.49" data-cat="dessert" data-img="cookies.png">
-          <img src="cookies.png" alt="Cookies" loading="lazy" />
+        <div class="menu-card" data-name="Cookies" data-price="5.49" data-cat="dessert" data-img="/assets/cookies.png">
+          <img src="/assets/cookies.png" alt="Cookies" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-dessert">Dessert</span>
             <div class="menu-card-name">Cookies</div>
@@ -709,8 +699,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Churros" data-price="6.49" data-cat="dessert" data-img="churros.png">
-          <img src="churros.png" alt="Churros" loading="lazy" />
+        <div class="menu-card" data-name="Churros" data-price="6.49" data-cat="dessert" data-img="/assets/churros.png">
+          <img src="/assets/churros.png" alt="Churros" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-dessert">Dessert</span>
             <div class="menu-card-name">Churros</div>
@@ -718,8 +708,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Cheesecake" data-price="7.49" data-cat="dessert" data-img="cheesecake.png">
-          <img src="cheesecake.png" alt="Cheesecake" loading="lazy" />
+        <div class="menu-card" data-name="Cheesecake" data-price="7.49" data-cat="dessert" data-img="/assets/cheesecake.png">
+          <img src="/assets/cheesecake.png" alt="Cheesecake" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-dessert">Dessert</span>
             <div class="menu-card-name">Cheesecake</div>
@@ -727,8 +717,8 @@
             <button class="add-btn">+ Add to Cart</button>
           </div>
         </div>
-        <div class="menu-card" data-name="Apple Pie" data-price="6.99" data-cat="dessert" data-img="applepie.png">
-          <img src="applepie.png" alt="Apple Pie" loading="lazy" />
+        <div class="menu-card" data-name="Apple Pie" data-price="6.99" data-cat="dessert" data-img="/assets/applepie.png">
+          <img src="/assets/applepie.png" alt="Apple Pie" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-dessert">Dessert</span>
             <div class="menu-card-name">Apple Pie</div>
@@ -739,12 +729,11 @@
       </div>
     </div>
 
-    <!-- Drinks -->
     <div class="category-group" data-group="drink">
       <div class="section-title">🥤 Drinks</div>
       <div class="menu-grid">
-        <div class="menu-card" data-name="Lemonade" data-price="3.99" data-cat="drink" data-img="lemonade.png">
-          <img src="lemonade.png" alt="Lemonade" loading="lazy" />
+        <div class="menu-card" data-name="Lemonade" data-price="3.99" data-cat="drink" data-img="/assets/lemonade.png">
+          <img src="/assets/lemonade.png" alt="Lemonade" loading="lazy" />
           <div class="menu-card-body">
             <span class="menu-tag tag-drink">Drink</span>
             <div class="menu-card-name">Lemonade</div>
@@ -756,9 +745,8 @@
     </div>
 
   </div>
-</div><!-- /pageContent -->
+</div>
 
-<!-- Cart Overlay + Drawer -->
 <div class="cart-overlay" id="cartOverlay"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-header">
@@ -776,10 +764,8 @@
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- Firebase -->
 <script type="module">
   import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signOut, onAuthStateChanged }
@@ -787,7 +773,6 @@
   import { getFirestore, collection, addDoc, serverTimestamp }
                               from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  /* ── Firebase config ── */
   const firebaseConfig = {
     apiKey:            "AIzaSyCEAcwTKoSnUkbaGvjrsy1QZ-Duj12WImk",
     authDomain:        "cookingmamauwu-9902c.firebaseapp.com",
@@ -804,32 +789,27 @@
   const auth = getAuth(app);
   const db   = getFirestore(app);
 
-  /* ── Auth guard ── */
   onAuthStateChanged(auth, (user) => {
     document.getElementById("authLoader").style.display = "none";
     if (!user) {
-      window.location.href = "index.html";
+      window.location.href = "signup.html";
       return;
     }
-    // Owner redirect
     if (user.email === OWNER_EMAIL) {
       window.location.href = "owner.html";
       return;
     }
-    // Show UI
     document.getElementById("navAvatar").src = user.photoURL || "";
     document.getElementById("navName").textContent = user.displayName?.split(" ")[0] || "Chef";
     document.getElementById("mainNav").style.display = "flex";
     document.getElementById("pageContent").style.display = "block";
   });
 
-  /* ── Sign out ── */
   document.getElementById("btnSignOut").addEventListener("click", async () => {
     await signOut(auth);
-    window.location.href = "index.html";
+    window.location.href = "signup.html";
   });
 
-  /* ── Dark Mode ── */
   const themeToggle = document.getElementById("themeToggle");
   const saved = localStorage.getItem("mama-theme") || "light";
   document.documentElement.setAttribute("data-theme", saved);
@@ -840,7 +820,6 @@
     localStorage.setItem("mama-theme", next);
   });
 
-  /* ── Category Tabs ── */
   document.querySelectorAll(".tab").forEach(tab => {
     tab.addEventListener("click", () => {
       document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
@@ -852,7 +831,6 @@
     });
   });
 
-  /* ── Cart State ── */
   let cart = []; // [{name, price, img, qty}]
 
   function findCartItem(name) { return cart.find(i => i.name === name); }
@@ -886,7 +864,6 @@
         </div>
       `).join("");
 
-      // Attach qty listeners
       cartItems.querySelectorAll(".qty-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           const idx = parseInt(btn.dataset.idx);
@@ -904,7 +881,6 @@
     totalEl.textContent    = "$" + (subtotal + tax).toFixed(2);
   }
 
-  /* ── Add to cart ── */
   document.querySelectorAll(".add-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const card = btn.closest(".menu-card");
@@ -919,7 +895,6 @@
     });
   });
 
-  /* ── Cart open/close ── */
   document.getElementById("cartBtn").addEventListener("click", openCart);
   document.getElementById("cartOverlay").addEventListener("click", closeCart);
   document.getElementById("closeCart").addEventListener("click", closeCart);
@@ -933,7 +908,6 @@
     document.getElementById("cartDrawer").classList.remove("open");
   }
 
-  /* ── Checkout / Place Order ── */
   document.getElementById("checkoutBtn").addEventListener("click", async () => {
     if (cart.length === 0) { showToast("Cart is empty! Add some food first 🍴"); return; }
     const user = auth.currentUser;
@@ -964,7 +938,6 @@
     }
   });
 
-  /* ── Toast ── */
   function showToast(msg) {
     const t = document.getElementById("toast");
     t.textContent = msg;

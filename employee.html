@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Time Tracker – Cooking Mama</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0A0E1A;--bg2:#0F1525;--card:#161D35;--card2:#1C2540;
+      --border:#252D50;--text:#D8E4FF;--text2:#6B7FBF;
+      --accent:#7EC8E3;--accent2:#4A9BB5;--green:#69D08A;--green2:#2D8A4E;
+      --red:#FF6B8A;--red2:#C0392B;--yellow:#FFD54F;--purple:#C97FC7;
+      --shadow:rgba(126,200,227,0.15);
+    }
+    html,body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+    nav{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:2px solid var(--border);
+      display:flex;align-items:center;justify-content:space-between;padding:10px 24px;
+      box-shadow:0 2px 20px var(--shadow)}
+    .nav-logo{height:44px;object-fit:contain;cursor:pointer}
+    .nav-title{font-family:'Pacifico',cursive;font-size:1.1rem;color:var(--accent)}
+    .nav-right{display:flex;align-items:center;gap:12px}
+    .user-pill{display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--border);
+      border-radius:50px;padding:5px 14px 5px 5px;font-weight:700;font-size:0.82rem;color:var(--text2)}
+    .user-pill img{width:30px;height:30px;border-radius:50%;border:2px solid var(--accent);object-fit:cover}
+    .sign-out-btn{background:transparent;border:2px solid var(--border);border-radius:50px;padding:6px 14px;
+      font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:700;color:var(--text2);cursor:pointer;transition:border-color .2s,color .2s}
+    .sign-out-btn:hover{border-color:var(--red);color:var(--red)}
+    .hero{text-align:center;padding:32px 16px 8px}
+    .hero h1{font-family:'Pacifico',cursive;font-size:2rem;color:var(--accent);text-shadow:0 0 30px rgba(126,200,227,0.35)}
+    .hero p{color:var(--text2);font-weight:600;margin-top:4px}
+    .main-wrap{max-width:760px;margin:0 auto;padding:24px 16px 80px;display:flex;flex-direction:column;gap:24px}
+
+    /* CLOCK CARD */
+    .clock-card{background:var(--card);border:2px solid var(--border);border-radius:24px;padding:28px 28px 24px;
+      display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+    .emp-name-big{font-family:'Pacifico',cursive;font-size:1.5rem;color:var(--accent)}
+    .role-tag{background:var(--card2);border:1.5px solid var(--border);border-radius:50px;
+      padding:4px 16px;font-size:0.8rem;font-weight:900;color:var(--text2);letter-spacing:0.06em;text-transform:uppercase}
+    .clock-display{font-family:'Share Tech Mono',monospace;font-size:3.5rem;color:var(--text);
+      letter-spacing:0.06em;line-height:1;padding:16px 28px;background:var(--bg);
+      border:2px solid var(--border);border-radius:18px;min-width:280px;
+      box-shadow:inset 0 4px 20px rgba(0,0,0,0.4)}
+    .clock-display.running{color:var(--green);text-shadow:0 0 20px rgba(105,208,138,0.4);
+      border-color:var(--green2);animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{box-shadow:inset 0 4px 20px rgba(0,0,0,0.4),0 0 0 0 rgba(105,208,138,0)}
+      50%{box-shadow:inset 0 4px 20px rgba(0,0,0,0.4),0 0 0 6px rgba(105,208,138,0.15)}}
+    .clock-status{font-size:0.88rem;font-weight:700;color:var(--text2)}
+    .clock-status.on{color:var(--green);font-weight:900}
+    .clock-buttons{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .clock-in-btn{background:var(--green2);border:none;border-radius:50px;padding:13px 36px;
+      font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:#fff;cursor:pointer;
+      box-shadow:0 4px 0 #1a5c34,0 6px 18px rgba(105,208,138,0.3);transition:transform .1s,box-shadow .1s}
+    .clock-in-btn:hover{transform:translateY(-2px)}
+    .clock-in-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #1a5c34}
+    .clock-out-btn{background:var(--red2);border:none;border-radius:50px;padding:13px 36px;
+      font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:#fff;cursor:pointer;
+      box-shadow:0 4px 0 #922b21,0 6px 18px rgba(255,107,138,0.3);transition:transform .1s,box-shadow .1s}
+    .clock-out-btn:hover{transform:translateY(-2px)}
+    .clock-out-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #922b21}
+    .clock-out-btn:disabled,.clock-in-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+    /* SESSIONS TABLE */
+    .sessions-card{background:var(--card);border:2px solid var(--border);border-radius:20px;overflow:hidden}
+    .sessions-header{padding:16px 22px;border-bottom:2px solid var(--border);
+      display:flex;align-items:center;justify-content:space-between}
+    .sessions-header h2{font-family:'Pacifico',cursive;font-size:1rem;color:var(--accent)}
+    .sessions-header .total-hrs{background:var(--card2);border-radius:50px;padding:4px 14px;
+      font-size:0.8rem;font-weight:900;color:var(--yellow)}
+    .sessions-table{width:100%;border-collapse:collapse}
+    .sessions-table th{padding:10px 16px;text-align:left;font-size:0.7rem;font-weight:900;
+      color:var(--text2);text-transform:uppercase;letter-spacing:0.07em;
+      border-bottom:1.5px solid var(--border);background:var(--card2)}
+    .sessions-table td{padding:11px 16px;font-size:0.85rem;font-weight:700;color:var(--text);
+      border-bottom:1px solid var(--border)}
+    .sessions-table tr:last-child td{border-bottom:none}
+    .sessions-table tr:hover td{background:rgba(126,200,227,0.03)}
+    .hrs-badge{background:rgba(255,213,79,0.12);color:var(--yellow);border:1.5px solid var(--yellow);
+      border-radius:50px;padding:2px 10px;font-size:0.72rem;font-weight:900}
+    .empty-sessions{text-align:center;padding:36px;color:var(--text2);font-weight:700}
+
+    /* LOADER/TOAST */
+    #authLoader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center}
+    .spinner{width:46px;height:46px;border:5px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(40px);
+      background:var(--card);color:var(--accent);padding:12px 26px;border-radius:50px;border:2px solid var(--accent);
+      font-size:0.9rem;font-weight:800;z-index:500;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media(max-width:500px){.clock-display{font-size:2.4rem;min-width:220px}}
+  </style>
+</head>
+<body>
+<div id="authLoader"><div class="spinner"></div></div>
+
+<nav id="mainNav" style="display:none">
+  <img class="nav-logo" src="/assets/logonav.jpg" alt="Cooking Mama"/>
+  <span class="nav-title">⏱️ Time Tracker</span>
+  <div class="nav-right">
+    <div class="user-pill">
+      <img id="navAvatar" src="" alt="avatar"/>
+      <span id="navName">Employee</span>
+    </div>
+    <button class="sign-out-btn" id="btnSignOut">Sign Out</button>
+  </div>
+</nav>
+
+<div id="pageContent" style="display:none">
+  <div class="hero">
+    <h1>⏱️ Time Clock</h1>
+    <p>Track your shifts — clock in when you arrive, clock out when you leave</p>
+  </div>
+
+  <div class="main-wrap">
+    <!-- Clock Widget -->
+    <div class="clock-card">
+      <div class="emp-name-big" id="empNameBig">Loading…</div>
+      <div class="role-tag" id="roleTag">Staff</div>
+      <div class="clock-display" id="clockDisplay">00:00:00</div>
+      <div class="clock-status" id="clockStatus">Not clocked in</div>
+      <div class="clock-buttons">
+        <button class="clock-in-btn" id="clockInBtn">🟢 Clock In</button>
+        <button class="clock-out-btn" id="clockOutBtn" disabled>🔴 Clock Out</button>
+      </div>
+    </div>
+
+    <!-- Sessions Log -->
+    <div class="sessions-card">
+      <div class="sessions-header">
+        <h2>📋 Your Session Log</h2>
+        <span class="sessions-header total-hrs" id="totalHrsLabel">0.00 hrs total</span>
+      </div>
+      <table class="sessions-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Clock In</th>
+            <th>Clock Out</th>
+            <th>Hours Worked</th>
+          </tr>
+        </thead>
+        <tbody id="sessionsBody">
+          <tr><td colspan="4" class="empty-sessions">No sessions recorded yet. Clock in to get started!</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+  import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, signOut, onAuthStateChanged }
+                             from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getFirestore, collection, addDoc, updateDoc, doc, query, where, orderBy, onSnapshot, serverTimestamp, Timestamp }
+                             from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey:"AIzaSyCEAcwTKoSnUkbaGvjrsy1QZ-Duj12WImk",
+    authDomain:"cookingmamauwu-9902c.firebaseapp.com",
+    projectId:"cookingmamauwu-9902c",
+    storageBucket:"cookingmamauwu-9902c.firebasestorage.app",
+    messagingSenderId:"18763902036",
+    appId:"1:18763902036:web:a8703f75e5ddf1d1b791c1"
+  };
+
+  const OWNER_EMAIL   = "danielaiscool6128@gmail.com";
+  const CUSTOMER_ROLE = "customer"; // customers go back to menu
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  let clockedIn     = false;
+  let clockInTime   = null;
+  let activeSessionId = null;
+  let timerInterval = null;
+  let currentUser   = null;
+
+  // Determine role label from email (extendable)
+  function getRoleLabel(email) {
+    if (email === OWNER_EMAIL)                   return "Owner";
+    if (email === "mateusstavares2008@gmail.com") return "Manager";
+    return "Staff";
+  }
+
+  onAuthStateChanged(auth, user => {
+    document.getElementById("authLoader").style.display = "none";
+    if (!user) { window.location.href = "signup.html"; return; }
+    if (user.email === OWNER_EMAIL) { window.location.href = "owner.html"; return; }
+
+    currentUser = user;
+    document.getElementById("navAvatar").src = user.photoURL || "";
+    document.getElementById("navName").textContent     = user.displayName?.split(" ")[0] || "Staff";
+    document.getElementById("empNameBig").textContent  = user.displayName || "Employee";
+    document.getElementById("roleTag").textContent     = getRoleLabel(user.email);
+    document.getElementById("mainNav").style.display = "flex";
+    document.getElementById("pageContent").style.display = "block";
+
+    listenSessions(user.uid);
+    checkOpenSession(user.uid);
+  });
+
+  document.getElementById("btnSignOut").addEventListener("click", async () => {
+    if (clockedIn) { await clockOut(); }
+    await signOut(auth);
+    window.location.href = "signup.html";
+  });
+
+  /* ── Check for an open session (page reload recovery) ── */
+  async function checkOpenSession(uid) {
+    const q = query(
+      collection(db, "timeSessions"),
+      where("uid","==",uid),
+      where("clockOut","==",null)
+    );
+    onSnapshot(q, snap => {
+      if (!snap.empty && !clockedIn) {
+        const d = snap.docs[0];
+        activeSessionId = d.id;
+        clockInTime     = d.data().clockIn.toDate();
+        clockedIn       = true;
+        startTimer();
+        setUIClocked(true);
+      }
+    });
+  }
+
+  /* ── Live sessions listener ── */
+  function listenSessions(uid) {
+    const q = query(
+      collection(db, "timeSessions"),
+      where("uid","==",uid),
+      orderBy("clockIn","desc")
+    );
+    onSnapshot(q, snap => {
+      const sessions = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderSessions(sessions);
+    });
+  }
+
+  function renderSessions(sessions) {
+    const body = document.getElementById("sessionsBody");
+    const totalHrsEl = document.getElementById("totalHrsLabel");
+    const completed = sessions.filter(s => s.clockOut);
+    const totalHrs  = completed.reduce((s,sess) => s + (sess.hoursWorked||0), 0);
+    totalHrsEl.textContent = totalHrs.toFixed(2) + " hrs total";
+
+    if (sessions.length === 0) {
+      body.innerHTML = `<tr><td colspan="4" class="empty-sessions">No sessions recorded yet. Clock in to get started!</td></tr>`;
+      return;
+    }
+
+    body.innerHTML = sessions.map(s => {
+      const inDate   = s.clockIn?.toDate ? s.clockIn.toDate() : null;
+      const outDate  = s.clockOut?.toDate ? s.clockOut.toDate() : null;
+      const dateStr  = inDate ? inDate.toLocaleDateString([], {month:"short",day:"numeric",year:"numeric"}) : "—";
+      const inStr    = inDate ? inDate.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}) : "—";
+      const outStr   = outDate ? outDate.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}) : '<span style="color:var(--green);font-weight:900">🟢 Active</span>';
+      const hrs      = s.hoursWorked != null ? `<span class="hrs-badge">${s.hoursWorked.toFixed(2)} hrs</span>` : '<span style="color:var(--text2)">In progress…</span>';
+      return `<tr>
+        <td>${dateStr}</td>
+        <td>${inStr}</td>
+        <td>${outStr}</td>
+        <td>${hrs}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  /* ── Clock In ── */
+  document.getElementById("clockInBtn").addEventListener("click", async () => {
+    if (clockedIn || !currentUser) return;
+    const nowTs = serverTimestamp();
+    const ref   = await addDoc(collection(db, "timeSessions"), {
+      uid:        currentUser.uid,
+      userName:   currentUser.displayName,
+      email:      currentUser.email,
+      role:       getRoleLabel(currentUser.email),
+      clockIn:    nowTs,
+      clockOut:   null,
+      hoursWorked:null
+    });
+    activeSessionId = ref.id;
+    clockInTime     = new Date();
+    clockedIn       = true;
+    startTimer();
+    setUIClocked(true);
+    showToast("🟢 Clocked in! Have a great shift!");
+  });
+
+  /* ── Clock Out ── */
+  document.getElementById("clockOutBtn").addEventListener("click", () => clockOut());
+
+  async function clockOut() {
+    if (!clockedIn || !activeSessionId) return;
+    clearInterval(timerInterval);
+    const now       = new Date();
+    const diffMs    = now - clockInTime;
+    const hoursWorked = +(diffMs / 3600000).toFixed(4);
+    await updateDoc(doc(db, "timeSessions", activeSessionId), {
+      clockOut:    Timestamp.fromDate(now),
+      hoursWorked: hoursWorked
+    });
+    clockedIn       = false;
+    activeSessionId = null;
+    clockInTime     = null;
+    setUIClocked(false);
+    document.getElementById("clockDisplay").textContent = "00:00:00";
+    document.getElementById("clockDisplay").classList.remove("running");
+    showToast(`🔴 Clocked out — ${hoursWorked.toFixed(2)} hrs worked!`);
+  }
+
+  function startTimer() {
+    clearInterval(timerInterval);
+    document.getElementById("clockDisplay").classList.add("running");
+    timerInterval = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - clockInTime.getTime()) / 1000);
+      const h = String(Math.floor(elapsed / 3600)).padStart(2, "0");
+      const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, "0");
+      const s = String(elapsed % 60).padStart(2, "0");
+      document.getElementById("clockDisplay").textContent = `${h}:${m}:${s}`;
+    }, 1000);
+  }
+
+  function setUIClocked(isClockedIn) {
+    const statusEl = document.getElementById("clockStatus");
+    document.getElementById("clockInBtn").disabled  = isClockedIn;
+    document.getElementById("clockOutBtn").disabled = !isClockedIn;
+    if (isClockedIn) {
+      const inStr = clockInTime ? clockInTime.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}) : "";
+      statusEl.textContent = `🟢 Clocked in since ${inStr}`;
+      statusEl.classList.add("on");
+    } else {
+      statusEl.textContent = "Not clocked in";
+      statusEl.classList.remove("on");
+    }
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 3000);
+  }
+</script>
+</body>
+</html>
+
+
