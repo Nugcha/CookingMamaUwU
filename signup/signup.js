@@ -91,6 +91,7 @@ function getDestination(user) {
 
 /* ── Auth state ── */
 onAuthStateChanged(auth, async (user) => {
+  document.getElementById("authLoader").style.display = "none";
   hide(document.getElementById("loadingState"));
   if (user) {
     try { await saveUser(user); } catch (e) { console.warn(e); }
