@@ -2,3 +2,4 @@
   from = "/"
   to = "/customer/customer.html"
   status = 200
+ 
